@@ -1,6 +1,6 @@
 import React from 'react';
-import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
-
+import {StyleSheet, Text, TextInput, View} from 'react-native';
+import Button from "./component/button/GenericButton";
 export default function App() {
 
   const [height, setHeight] = React.useState<number>(0.0);
@@ -60,7 +60,7 @@ export default function App() {
     <View style={styles.container}>
       <TextInput placeholder="Height" onChangeText={handleOnChangeHeight} keyboardType="numeric"/>
       <TextInput placeholder="Mass" onChangeText={handleOnChangeMass} keyboardType="numeric"/>
-      <Button title="Calculate" onPress={calculateBMC}/>
+      <Button onPress={calculateBMC}/>
       <Text style={{textAlign: "center", margin: 10}}>{heightString}</Text>
       <Text style={{textAlign: "center", margin: 10}}>{massString}</Text>
       <Text style={{textAlign: "center", margin: 10}}>{resultString}</Text>
