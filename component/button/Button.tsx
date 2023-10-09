@@ -1,43 +1,65 @@
 import {Component} from "react";
-import {StyleProp, Text, TouchableOpacity, ViewStyle} from "react-native";
-import IButton from "./IButton";
-import ButtonStyle from "../../styles/component/button/ButtonStyle";
-
-export class Button extends Component {
-    title: string;
-    onPress: () => void;
-    color: Color;
-    style: StyleProp<ViewStyle>;
-
+import {StyleProp, Text, TextStyle, TouchableOpacity, ViewStyle} from "react-native";
+import DefaultButtonStyle from "./styles/DefaultButtonStyle";
+import ButtonTextColor from "./ButtonTextColor";
+class Button extends Component {
+    private text: string = "";
+    private onPress: () => void = () => {};
+    private containerStyle: StyleProp<ViewStyle>[] = [DefaultButtonStyle.container];
+    private textStyle: StyleProp<TextStyle>[] = [DefaultButtonStyle.containerText];
     render() {
         return (
             <>
-                <TouchableOpacity style={[ButtonStyle.container, this.style]} onPress={this.onPress}>
-                    <Text style = {[ButtonStyle.containerText, {color: this.color}]}>
+                <TouchableOpacity
+                    style={this.containerStyle}
+                    onPress={this.onPress}
+                >
+                    <Text
+                        style={this.textStyle}
+                    >
+                        {this.text}
                     </Text>
                 </TouchableOpacity>
-
             </>
         );
     }
     constructor(props: ButtonProps) {
         super(props);
-        this.title = props.title;
-        this.onPress = props.onPress;
-        this.color = props.color || Color.white;
-        this.style = props.style || {};
+        this.setOnPress(props.onPress)
+        this.setText(props.text);
+        this.setContainerStyle(props.containerStyle);
+        this.setTextColor(props.textColor);
+
+    }
+
+    private setText(text: string) {
+        this.text = text
+    }
+
+    private setOnPress(onPress: () => void) {
+        this.onPress = onPress
+    }
+
+    private setTextColor(textColor: ButtonTextColor | undefined) {
+        if(textColor === undefined || textColor === null)
+            return
+        this.textStyle.push({
+            color: textColor
+        })
+    }
+
+    private setContainerStyle = (containerStyle: StyleProp<ViewStyle> | undefined) => {
+        if(containerStyle === undefined || containerStyle === null)
+            return
+        this.containerStyle.push(containerStyle)
     }
 }
 
 type ButtonProps = {
-    title: string;
+    text: string;
     onPress: () => void;
-    color?: Color;
-    style?: StyleProp<ViewStyle>;
+    containerStyle?: StyleProp<ViewStyle>;
+    textColor?: ButtonTextColor;
 }
-enum Color {
-    white = 'white',
-    red = 'red',
-    black = 'black'
-}
+
 export default Button;

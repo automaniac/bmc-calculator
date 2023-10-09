@@ -1,6 +1,6 @@
 import {StyleSheet} from "react-native";
 
-const ButtonStyle = StyleSheet.create({
+const DefaultButtonStyle = StyleSheet.create({
     container:{
         backgroundColor:'#007BFF',
         padding:10,
@@ -14,4 +14,4 @@ const ButtonStyle = StyleSheet.create({
     }
 })
 
-export default ButtonStyle
+export default DefaultButtonStyle
